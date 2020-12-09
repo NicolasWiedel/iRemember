@@ -30,7 +30,7 @@
    <left>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnNotes" mnemonicParsing="false" text="Notizen" />
+            <Button fx:id="btnNotes" mnemonicParsing="false" onAction="#changeCategorie" text="Notizen" />
          </children>
       </VBox>
    </left>

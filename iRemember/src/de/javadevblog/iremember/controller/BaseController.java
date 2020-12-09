@@ -28,7 +28,7 @@ public class BaseController {
 	}
 	
 	@FXML
-	public void changeCatgorie(ActionEvent e) {
+	public void changeCategorie(ActionEvent e) {
 		if ( e.getSource() == btnNotes) {
 			System.out.println("Notizen gedrückt!");
 		}
