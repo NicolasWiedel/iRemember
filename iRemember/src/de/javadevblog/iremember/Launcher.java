@@ -28,6 +28,7 @@ public class Launcher extends Application {
 		personDAO.persist(nici);
 		personDAO.shutdown();
 		
+		// 
 		ViewFactory viewFactory = new ViewFactory();
 	}
 
