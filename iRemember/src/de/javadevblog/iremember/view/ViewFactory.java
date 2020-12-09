@@ -1,5 +1,6 @@
 package de.javadevblog.iremember.view;
 
+import de.javadevblog.iremember.controller.AdressViewController;
 import de.javadevblog.iremember.controller.BaseController;
 import de.javadevblog.iremember.controller.NoteViewController;
 import javafx.fxml.FXMLLoader;
@@ -22,12 +23,27 @@ public class ViewFactory {
 		baseController = new BaseController(this, "baseview.fxml");
 		sceneWidth = 900;
 		sceneHeight = 600;
-		showNoteScene();
+		showAdressView();
 		stage.show();
 	}
 
-	public void showNoteScene() {
+	public void showNoteView() {
 		controller = new NoteViewController(this, "noteview.fxml");
+		initializeScene(controller);
+	}
+	
+	public void showAdressView() {
+		controller = new AdressViewController(this, "adressview.fxml");
+		initializeScene(controller);
+	}
+	
+	public void showMailView() {
+		controller = new AdressViewController(this, "mailview.fxml");
+		initializeScene(controller);
+	}
+	
+	public void showMeetingView() {
+		controller = new AdressViewController(this, "meetingview.fxml");
 		initializeScene(controller);
 	}
 

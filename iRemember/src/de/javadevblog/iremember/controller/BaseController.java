@@ -17,7 +17,7 @@ public class BaseController {
 	private Button btnMails;
 
 	@FXML
-	private Button btnDates;
+	private Button btnMeetings;
 
 	@FXML
 	private Button btnNotes;
@@ -31,6 +31,16 @@ public class BaseController {
 	public void changeCategorie(ActionEvent e) {
 		if ( e.getSource() == btnNotes) {
 			System.out.println("Notizen gedrückt!");
+			viewFactory.showNoteView();
+		}else if ( e.getSource() == btnAdresses) {
+			System.out.println("Adressen gedrückt!");
+			viewFactory.showAdressView();
+		}else if ( e.getSource() == btnMails) {
+			System.out.println("Email gedrückt!");
+			viewFactory.showMailView();
+		}else if ( e.getSource() == btnMeetings) {
+			System.out.println("Termine gedrückt!");
+			viewFactory.showMeetingView();
 		}
 	}
 

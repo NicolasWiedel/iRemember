@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <top>
@@ -30,7 +32,10 @@
    <left>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnNotes" mnemonicParsing="false" onAction="#changeCategorie" text="Notizen" />
+            <Button fx:id="btnNotes" mnemonicParsing="false" onAction="#changeCategorie" prefWidth="75.0" text="Notizen" />
+            <Button fx:id="btnAdresses" mnemonicParsing="false" onAction="#changeCategorie" prefWidth="75.0" text="Adressen" />
+            <Button fx:id="btnMails" mnemonicParsing="false" onAction="#changeCategorie" prefWidth="75.0" text="Email" />
+            <Button fx:id="btnMeetings" mnemonicParsing="false" onAction="#changeCategorie" prefWidth="75.0" text="Termine" />
          </children>
       </VBox>
    </left>
