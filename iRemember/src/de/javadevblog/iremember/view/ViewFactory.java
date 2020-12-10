@@ -2,6 +2,8 @@ package de.javadevblog.iremember.view;
 
 import de.javadevblog.iremember.controller.AdressViewController;
 import de.javadevblog.iremember.controller.BaseController;
+import de.javadevblog.iremember.controller.MailViewController;
+import de.javadevblog.iremember.controller.MeetingViewController;
 import de.javadevblog.iremember.controller.NoteViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +14,7 @@ import javafx.stage.Stage;
 public class ViewFactory {
 
 	private Stage stage;
+	private String stageTitle;
 	private Scene scene;
 	private BaseController baseController;
 	private BaseController controller;
@@ -29,21 +32,25 @@ public class ViewFactory {
 
 	public void showNoteView() {
 		controller = new NoteViewController(this, "noteview.fxml");
+		stage.setTitle("Notizen");
 		initializeScene(controller);
 	}
 	
 	public void showAdressView() {
 		controller = new AdressViewController(this, "adressview.fxml");
+		stage.setTitle("Adressen");
 		initializeScene(controller);
 	}
 	
 	public void showMailView() {
-		controller = new AdressViewController(this, "mailview.fxml");
+		controller = new MailViewController(this, "mailview.fxml");
+		stage.setTitle("Email");
 		initializeScene(controller);
 	}
 	
 	public void showMeetingView() {
-		controller = new AdressViewController(this, "meetingview.fxml");
+		controller = new MeetingViewController(this, "meetingview.fxml");
+		stage.setTitle("Termine");
 		initializeScene(controller);
 	}
 

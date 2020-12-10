@@ -16,16 +16,25 @@ public class Launcher extends Application {
 		
 		// vorläufig
 		PersonDAO personDAO = new PersonDAO();
-		Person nici = new Person();
-		nici.setFirstName("Nicolas");
-		nici.setLastName("Wiedel");
+		Person person = new Person();
+		person.setFirstName("Nicolas");
+		person.setLastName("Wiedel");
 		
 		Calendar cal = Calendar.getInstance();
 		cal.set(1966, Calendar.JUNE, 6);
 		Date birthDate = new Date(cal.getTime().getTime());
-		nici.setBirthDate(birthDate);
+		person.setBirthDate(birthDate);
 		
-		personDAO.persist(nici);
+		person.setStreet("Schwarzwaldstrasse");
+		person.setHouseNumber("59");
+		person.setCountry("D");
+		person.setPostCode("74109");
+		person.setTown("Freiburg");
+		person.setPhone("0761/13456");
+		person.setMobilePhone("0177/123456");
+		person.setMail("mail@gmail.com");
+		
+		personDAO.persist(person);
 		personDAO.shutdown();
 		
 		// 
