@@ -1,4 +1,4 @@
-package de.javadevblog.iremember.model.adresses;
+package de.javadevblog.iremember;
 
 import java.util.Collection;
 
@@ -7,16 +7,26 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-public class PersonDAO {
+import de.javadevblog.iremember.model.adresses.Person;
 
-	private EntityManagerFactory factory;
-	private EntityManager em;
+public class DAO {
+
+	protected EntityManagerFactory factory;
+	protected EntityManager em;
 	
-	public PersonDAO() {
+	public DAO() {
 		factory = Persistence.createEntityManagerFactory("iRemember");
 		em = factory.createEntityManager();
 	}
 	
+	public void shutdown() {
+		em.close();
+		factory.close();
+		em = null;
+		factory = null;
+	}
+	
+//	DAO-Methoden für Zugriff auf Adressen
 	@SuppressWarnings("unchecked")
 	public Collection<Person> findAll(){
 		Query query = em.createQuery("SELECT p FROM Person p");
@@ -55,11 +65,5 @@ public class PersonDAO {
 		em.remove(person);
 		em.getTransaction().commit();
 	}
-	
-	public void shutdown() {
-		em.close();
-		factory.close();
-		em = null;
-		factory = null;
-	}	
+//	ENDE DAO-Methoden für Zugriff auf Adressen
 }

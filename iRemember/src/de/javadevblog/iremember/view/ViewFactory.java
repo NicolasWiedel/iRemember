@@ -1,5 +1,6 @@
 package de.javadevblog.iremember.view;
 
+import de.javadevblog.iremember.DAO;
 import de.javadevblog.iremember.controller.AdressViewController;
 import de.javadevblog.iremember.controller.BaseController;
 import de.javadevblog.iremember.controller.MailViewController;
@@ -13,6 +14,8 @@ import javafx.stage.Stage;
 
 public class ViewFactory {
 
+	private DAO dao;
+	
 	private Stage stage;
 	private String stageTitle;
 	private Scene scene;
@@ -22,6 +25,7 @@ public class ViewFactory {
 	private double sceneHeight;
 	
 	public ViewFactory() {
+		dao= new DAO();
 		stage = new Stage();
 		baseController = new BaseController(this, "baseview.fxml");
 		sceneWidth = 900;
@@ -84,4 +88,14 @@ public class ViewFactory {
 			return;
 		}
 	}
+
+	public DAO getDao() {
+		return dao;
+	}
+
+	public void setDao(DAO dao) {
+		this.dao = dao;
+	}
+	
+	
 }

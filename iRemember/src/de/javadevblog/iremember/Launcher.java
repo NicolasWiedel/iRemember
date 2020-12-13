@@ -5,11 +5,19 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Launcher extends Application {
+	
+	private ViewFactory viewFactory;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 	
-		ViewFactory viewFactory = new ViewFactory();
+		viewFactory = new ViewFactory();
+	}
+	
+	@Override
+	public void stop() throws Exception {
+		super.stop();
+		viewFactory.getDao().shutdown();
 	}
 
 	public static void main(String[] args) {
