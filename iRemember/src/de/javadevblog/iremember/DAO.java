@@ -59,8 +59,14 @@ public class DAO {
 		em.getTransaction().commit();
 	}
 	
+	public void delete(Person person) {
+		em.getTransaction().begin();;
+		em.remove(person);
+		em.getTransaction().commit();
+	}
+	
 	public void delete(long id) {
-		em.getTransaction();
+		em.getTransaction().begin();;
 		Person person = em.getReference(Person.class, id);
 		em.remove(person);
 		em.getTransaction().commit();

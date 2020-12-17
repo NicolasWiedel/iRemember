@@ -1,6 +1,7 @@
 package de.javadevblog.iremember.controller;
 
 import java.net.URL;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.ResourceBundle;
@@ -71,9 +72,6 @@ public class AdressViewController extends BaseController implements Initializabl
 
 		firstNameColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("firstName"));
 		lastNameColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("lastName"));
-
-//		tableView.getSelectionModel().selectedItemProperty()
-//				.addListener((observable, oldValue, newValue) -> showDetails(newValue));
 		
 		tableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Person>() {
 			@Override
@@ -96,21 +94,48 @@ public class AdressViewController extends BaseController implements Initializabl
 
 	@FXML
 	public void btnNewAction() {
-		// TODO
+		aktuellePerson = new Person();
+		updateDatabaseFromFields();
+		clearFields();
 	}
 
 	@FXML
-	public void btnDeleteAction(ActionEvent event) {
-		// TODO
+	public void btnDeleteAction() {
+		if(aktuellePerson != null) {
+			viewFactory.getDao().delete(aktuellePerson);
+			tableView.getItems().clear();
+			tableView.setItems(loadPersonsFromDatabase());
+		}
+		else {
+			// TODO: Fehlermeldung ausgeben!
+		}
 	}
 	
 
 	@FXML
 	public void btnSaveAction() {
+		updateDatabaseFromFields();
+	}
+	
+	private void updateDatabaseFromFields() {
 		aktuellePerson.setFirstName(textFieldFirstName.getText());
 		aktuellePerson.setLastName(textFieldLastName.getText());
-		viewFactory.getDao().persist(aktuellePerson);
+		aktuellePerson.setStreet(textfFiedStreet.getText());
+		aktuellePerson.setHouseNumber(textFieldHouseumber.getText());
+		aktuellePerson.setTown(textFieldTown.getText());
+		aktuellePerson.setPhone(textFieldPhone.getText());
+		aktuellePerson.setMobilePhone(textFieldMobilePhone.getText());
+		aktuellePerson.setMail(textFieldMail.getText());
 		
+		if (datePickerBithday != null) {
+			Date birthDate = Date.valueOf(datePickerBithday.getValue());
+			aktuellePerson.setBirthDate(birthDate);
+		}
+		else {
+			aktuellePerson.setBirthDate(null);
+		}
+		
+		viewFactory.getDao().persist(aktuellePerson);
 		personData.clear();
 		personData = loadPersonsFromDatabase();
 		tableView.setItems(personData);
@@ -128,10 +153,28 @@ public class AdressViewController extends BaseController implements Initializabl
 		textFieldMobilePhone.setText(aktuellePerson.getMobilePhone());
 		textFieldMail.setText(aktuellePerson.getMail());
 		
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(aktuellePerson.getBirthDate());
-		LocalDate date = LocalDate.of(cal.get(Calendar.YEAR), Calendar.MONTH, Calendar.DAY_OF_MONTH);
-		datePickerBithday.setValue(date);
+		if(aktuellePerson.getBirthDate() != null) {
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(aktuellePerson.getBirthDate());
+			LocalDate date = LocalDate.of(cal.get(Calendar.YEAR), Calendar.MONTH, Calendar.DAY_OF_MONTH);
+			datePickerBithday.setValue(date);
+		}
+		else {
+			datePickerBithday.setValue(null);
+		}
 	}
-
+	
+	private void clearFields() {
+		textFieldFirstName.setText("");
+		textFieldLastName.setText("");
+		textfFiedStreet.setText("");
+		textFieldHouseumber.setText("");
+		textFieldPlz.setText("");
+		textFieldTown.setText("");
+		textFieldPhone.setText("");
+		textFieldMobilePhone.setText("");
+		textFieldMail.setText("");
+		datePickerBithday.setValue(null);
+		aktuellePerson = null;
+	}
 }
