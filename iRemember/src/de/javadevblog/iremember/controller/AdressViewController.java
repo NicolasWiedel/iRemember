@@ -1,10 +1,14 @@
 package de.javadevblog.iremember.controller;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 
 import de.javadevblog.iremember.model.adresses.Person;
 import de.javadevblog.iremember.view.ViewFactory;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -53,9 +57,7 @@ public class AdressViewController extends BaseController implements Initializabl
 	private TableColumn<Person, String> lastNameColumn;
 
 	private ObservableList<Person> personData;
-
-	// vorläufig
-	private Person person;
+	private Person aktuellePerson;
 
 	public AdressViewController(ViewFactory viewfactory, String fxmlName) {
 		super(viewfactory, fxmlName);
@@ -70,8 +72,17 @@ public class AdressViewController extends BaseController implements Initializabl
 		firstNameColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("firstName"));
 		lastNameColumn.setCellValueFactory(new PropertyValueFactory<Person, String>("lastName"));
 
-		tableView.getSelectionModel().selectedItemProperty()
-				.addListener((observable, oldValue, newValue) -> showDetails(newValue));
+//		tableView.getSelectionModel().selectedItemProperty()
+//				.addListener((observable, oldValue, newValue) -> showDetails(newValue));
+		
+		tableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Person>() {
+			@Override
+			public void changed(ObservableValue<? extends Person> observable, Person oldValue, Person newValue) {
+				if(!personData.isEmpty()){
+					showPersonInFields(newValue);
+				}	
+			}
+		});
 
 		personData = loadPersonsFromDatabase();
 
@@ -84,27 +95,43 @@ public class AdressViewController extends BaseController implements Initializabl
 	}
 
 	@FXML
-	void btnNewAction(ActionEvent event) {
-
+	public void btnNewAction() {
+		// TODO
 	}
 
 	@FXML
-	void btnDeleteAction(ActionEvent event) {
-
+	public void btnDeleteAction(ActionEvent event) {
+		// TODO
 	}
+	
 
 	@FXML
-	void btnSaveAction(ActionEvent event) {
-
+	public void btnSaveAction() {
+		aktuellePerson.setFirstName(textFieldFirstName.getText());
+		aktuellePerson.setLastName(textFieldLastName.getText());
+		viewFactory.getDao().persist(aktuellePerson);
+		
+		personData.clear();
+		personData = loadPersonsFromDatabase();
+		tableView.setItems(personData);
 	}
 
-	private void showDetails(Person person) {
-		textFieldFirstName.setText(person.getFirstName());
-		textFieldLastName.setText(person.getLastName());
-		textfFiedStreet.setText(person.getStreet());
-		textFieldHouseumber.setText(person.getHouseNumber());
-		textFieldPlz.setText(person.getPostCode());
-		textFieldTown.setText(person.getTown());
+	private void showPersonInFields(Person aktuellePerson) {
+		this.aktuellePerson = aktuellePerson;
+		textFieldFirstName.setText(aktuellePerson.getFirstName());
+		textFieldLastName.setText(aktuellePerson.getLastName());
+		textfFiedStreet.setText(aktuellePerson.getStreet());
+		textFieldHouseumber.setText(aktuellePerson.getHouseNumber());
+		textFieldPlz.setText(aktuellePerson.getPostCode());
+		textFieldTown.setText(aktuellePerson.getTown());
+		textFieldPhone.setText(aktuellePerson.getPhone());
+		textFieldMobilePhone.setText(aktuellePerson.getMobilePhone());
+		textFieldMail.setText(aktuellePerson.getMail());
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(aktuellePerson.getBirthDate());
+		LocalDate date = LocalDate.of(cal.get(Calendar.YEAR), Calendar.MONTH, Calendar.DAY_OF_MONTH);
+		datePickerBithday.setValue(date);
 	}
 
 }
