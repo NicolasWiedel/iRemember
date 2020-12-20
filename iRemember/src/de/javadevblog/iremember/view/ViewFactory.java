@@ -23,6 +23,7 @@ public class ViewFactory {
 	private BaseController controller;
 	private double sceneWidth;
 	private double sceneHeight;
+	private String title = "iRemember";
 	
 	public ViewFactory() {
 		dao= new DAO();
@@ -36,25 +37,25 @@ public class ViewFactory {
 
 	public void showNoteView() {
 		controller = new NoteViewController(this, "noteview.fxml");
-		stage.setTitle("Notizen");
+		stage.setTitle(title + " - Notizen");
 		initializeScene(controller);
 	}
 	
 	public void showAdressView() {
 		controller = new AdressViewController(this, "adressview.fxml");
-		stage.setTitle("Adressen");
+		stage.setTitle(title + " - Adressen");
 		initializeScene(controller);
 	}
 	
 	public void showMailView() {
 		controller = new MailViewController(this, "mailview.fxml");
-		stage.setTitle("Email");
+		stage.setTitle(title + " - Email");
 		initializeScene(controller);
 	}
 	
 	public void showMeetingView() {
 		controller = new MeetingViewController(this, "meetingview.fxml");
-		stage.setTitle("Termine");
+		stage.setTitle(title + " - Termine");
 		initializeScene(controller);
 	}
 
